@@ -1,1 +1,1 @@
-# picsart_academy_project_interpretator
+# Interpretator

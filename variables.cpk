@@ -1,0 +1,4 @@
+d_num(age, 123);
+d_bool(cont, false);
+d_str(name, Aleks);
+d_str(name_2, Martin);
