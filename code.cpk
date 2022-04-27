@@ -1,0 +1,13 @@
+num(age, 0);
+str(name, '');
+input('Enter your age: ', age);
+input('Enter your name: ', name);
+
+if age > 18
+	output('You are old');
+else
+	output('You are kid');
+
+
+for(num(i, 0); i > 0; ++i)
+	output(i);
