@@ -1,48 +1,106 @@
 ﻿#include <iostream>
-#include <map>
 #include <fstream>
 #include <string>
 
-std::map<std::string, std::string> STRING_TYPE;
-std::map<std::string, int> NUMB_TYPE;
-std::map<std::string, bool> BOOL_TYPE;
+enum mods{DEFAULT, CYCLE, CONDITION, SKIP};
+
+std::string VARIABLES;
 std::fstream CODE ("variables.cpk");
-int line = 1; // for easy errors show line
+int line_pointer = 1; // for easy errors show line
+mods READ_MODE = DEFAULT;
+std::string CODE_LINE;
 
 #include "tools.h"
-#include "variable.h"
 
+std::string get_first_key() {
+	std::string fk;
 
-int main(){
+	for (int i = 0; i < CODE_LINE.length(); ++i) {
+		if (CODE_LINE[i] == ' ' || CODE_LINE[i] == '}') {
+			break;
+		}
+		fk += CODE_LINE[i];
+	}
 
-	while (!CODE.eof()){
-		std::string code_line;
-		std::getline(CODE, code_line);
+	return fk;
+}
 
-		char line_type = code_line[0];
-		switch (line_type) {
-			case 'd': {
-				variable_create(code_line.erase(0,2));
-				break;
-			}
-			case 'e': {
-				// conditional statements if else
-				break;
-			}
-			case 'l': {
-				// cicles
-				break;
-			}
-			case 'o': {
-				// output
-				break;
-			}
-			default: {
-				error();
-				// see other version (variable use, etc..)
-			}
+void find_variable(std::string varName) {
+	
+}
+
+void try_variable_create() {
+	// check have this variable or not
+	std::string tockens[3];
+	int index = 0;
+
+	for (int i = 0; i < CODE_LINE.length(); ++i) {
+		if (CODE_LINE[i] == ';') {break;}
+		if (CODE_LINE[i] == ' ') {index++;}
+		tockens[index] += CODE_LINE[i];
+	}
+
+	// find variable name tockens[1] in VARIABLES
+	find_variable(tockens[1]);
+}
+
+void default_mode() {
+	if (CODE_LINE.length() == 0) { return; }
+	//std::cout << "Get line: " << CODE_LINE << "\n";
+
+	std::string first_keyword = get_first_key();
+
+	std::cout << "- Keyword: " << first_keyword << std::endl;
+	if (first_keyword == "num" || first_keyword == "str" || first_keyword == "bool") {
+		try_variable_create();
+	}else
+	if (first_keyword == "if") {
+		// if logic function
+	}else
+	if(first_keyword == "for") {
+		// for logic function
+	}
+	if (first_keyword == "else") {
+		READ_MODE = SKIP;
+	}
+}
+
+void cycle_mode() {
+
+}
+
+void condition_mode() {
+
+}
+
+void skip_mode() {
+	while (CODE_LINE != "}") {
+		GNL();
+	}
+	
+	READ_MODE = DEFAULT;
+}
+
+void line_read(){
+	while (!CODE.eof()) {
+		GNL();
+		if (READ_MODE == DEFAULT) {
+			default_mode();
+		}
+		else if (READ_MODE == CYCLE) {
+			cycle_mode();
+		}
+		else if (READ_MODE == SKIP) {
+			skip_mode();
+		}
+		else {
+			condition_mode();
 		}
 
-		line++;
+		line_pointer++;
 	}
+}
+
+int main(){
+	line_read();
 }
