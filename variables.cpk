@@ -1,16 +1,18 @@
-num numb 2;
-num numb2 2;
-str name Alex;
+num age 2;
+num age2 5;
+str name 'Alex';
 bool havefriend true;
 
-if num > num2
-	output 3;
+output 10;
+output name;
+
+if age > age2;
 	output 4;
 }
-else
+else;
 	output 10;
 }
-for 5
+for 5;
 	output 30;
 	output name;
 	output 'Bob';
