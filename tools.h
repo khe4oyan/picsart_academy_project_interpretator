@@ -1,12 +1,4 @@
 #pragma once
-void first_white_space_del();
-void GNL();
-void error(std::string msg = "undefined behaviour");
-void warning(std::string msg);
-void tockens_reset();
-void tockens_show();
-void get_tockens();
-void color_set(int color);
 
 template<typename T>
 void w(T t) {
