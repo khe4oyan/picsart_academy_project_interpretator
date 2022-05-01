@@ -1,18 +1,16 @@
-num age 5;
+num age 2;
 num age2 5;
 str name 'Alex';
 bool havefriend true;
 
 output 10;
 output name;
-age = age2 + 3;
-age2 = 10;
 
 if age > age2;
 	output 4;
 }
 else;
-	output 10;
+	output 'aw dsw';
 }
 for 5;
 	output 30;

@@ -27,6 +27,14 @@ void cnt_opeartors(std::string opr);
 void condition();
 void condition_mode();
 
+// APPROPRIATION
+void just_appropriation();
+void appropriation();
+int translate_num(int i);
+void operators();
+void opr_apostrov_clear(int i);
+void opr_sum_str();
+
 // OTHER FUNCTIONS
 void create_var();
 void default_mode();
@@ -37,16 +45,10 @@ void operators();
 void appropriation();
 std::string get_var_type(int tocken_index);
 
-// APPROPRIATION
-void just_appropriation();
-void appropriation();
-int translate_num(int i);
-void operators();
-void opr_apostrov_clear(int i);
-void opr_sum_str();
-
 // INCLUDES ALL FILES
 #include "tools.h"
 #include "condition.h"
 #include "other_functions.h"
 #include "appropriation.h"
+
+void get_output_value(int i);

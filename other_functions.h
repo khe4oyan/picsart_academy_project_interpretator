@@ -4,6 +4,13 @@ void create_var() {
 		error("this name is exists");
 	}
 	
+	if (TOCKENS[1] == "num" || TOCKENS[1] == "bool" ||
+			TOCKENS[1] == "str" || TOCKENS[1] == "for" ||
+			TOCKENS[1] == "output" || TOCKENS[1] == "else" ||
+			TOCKENS[1] == "if") {
+		error("\"" + TOCKENS[1] + "\" name is reserved. You can't use this name for variables");
+	}
+
 	if (TOCKENS[0] == "num") {
 		for (int i = 0; i < TOCKENS[2].length(); ++i) {
 			if (TOCKENS[2][i] >= 48 && TOCKENS[2][i] <= 57) {
@@ -42,25 +49,23 @@ std::string get_var_type(int tocken_index) {
 	}
 }
 
+void output() {
+	w(TOCKENS[1]);
+}
+
 void default_mode() {
 	if (CODE_LINE.length() == 0) { return; }
 	std::string first_keyword = TOCKENS[0];
 
 	if (TOCKENS[1] != "=") {
-	if (first_keyword == "num" || first_keyword == "str" || first_keyword == "bool") { create_var(); }
-	else
-	if (first_keyword == "if") { condition(); }
-	else
-	if (first_keyword == "for") { READ_MODE = SKIP; /* временно */ }
-	else
-	if (first_keyword == "else") { READ_MODE = SKIP; }
-	else
-	if (first_keyword == "output") {}
-	else { error("syntax error"); }
+		if (first_keyword == "num" || first_keyword == "str" || first_keyword == "bool") { create_var(); }else
+		if (first_keyword == "if") { condition(); }else
+		if (first_keyword == "for") { READ_MODE = SKIP; /* временно */ } else
+		if (first_keyword == "else") { READ_MODE = SKIP; }else
+		if (first_keyword == "output") { output(); }
+		else { error("first tocken is undefined"); }
 	}
-	else {
-		appropriation();
-	}
+	else { appropriation(); }
 }
 
 void cycle_mode() {

@@ -5,7 +5,7 @@ void condition_mode() {
 		default_mode();
 		GNL();
 	}
-	GNL();
+	//GNL();
 
 	if (CODE_LINE == "else;") { READ_MODE = SKIP; }
 	else { READ_MODE = DEFAULT; }
@@ -42,11 +42,14 @@ void cnt_type_equal(std::string type) {
 void cnt_big() { // >
 	cnt_type_equal("num");
 
-	// do..
-	if (std::stoi(VARIABLES[TOCKENS[1]].value) > std::stoi(VARIABLES[TOCKENS[3]].value)) {
+	int num_1 = std::stoi(VARIABLES[TOCKENS[1]].value);
+	int num_2 = std::stoi(VARIABLES[TOCKENS[3]].value);
+
+	if (num_1 > num_2) {
 		READ_MODE = CONDITION;
 	}
 	else {
+
 		cnt_else_version();
 	}
 }
@@ -102,7 +105,7 @@ void cnt_or() { // ||
 
 void cnt_opeartors(std::string opr) {
 	// >, <, ==, !=, &&, ||
-
+	
 	if (opr == ">") { cnt_big(); }
 	else
 	if (opr == "<") { cnt_small(); }

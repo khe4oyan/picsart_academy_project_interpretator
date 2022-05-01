@@ -76,17 +76,43 @@ void get_string(int i) {
 
 		if (var_found(TOCKENS[2])) {
 			if (VARIABLES[TOCKENS[2]].type != "str") {
-				error("reference variable type is not equal for " + TOCKENS[1] + " type");
+				error("reference variable type is not equal for \"" + TOCKENS[1] + "\" type");
 			}
 			TOCKENS[2] = VARIABLES[TOCKENS[2]].value;
 		}
 		else {
 			error("this variable is not found");
 		}
-
 	}
 	else {
 		error("variable keywork first char can was char");
+	}
+}
+
+void get_output_value(int i) {
+	if(CODE_LINE[i] == '\'') {
+		std::string tmp;
+		i++;
+		while (CODE_LINE[i] != '\'') {
+			TOCKENS[1] += CODE_LINE[i++];
+		}
+		return;
+	}
+
+	while (CODE_LINE[i] != ';') {
+		TOCKENS[1] += CODE_LINE[i++];
+	}
+	
+	if (TOCKENS[1] == "true" || TOCKENS[1] == "false" || 
+			TOCKENS[1][0] >= 48 && TOCKENS[1][0] <= 57) {
+		return;
+	}
+
+	if (var_found(TOCKENS[1])) {
+		TOCKENS[1] = VARIABLES[TOCKENS[1]].value;
+	}
+	else {
+		error("variable isn't exists");
 	}
 }
 
@@ -104,6 +130,11 @@ void get_tockens() {
 				get_string(i);
 				break;
 			}
+		}
+
+		if (TOCKENS[0] == "output") {
+			get_output_value(i);
+			break;
 		}
 
 		if (CODE_LINE[i] == ' ' || CODE_LINE[i] == ';') {
