@@ -1,5 +1,16 @@
 #pragma once
 
+void condition_mode() {
+	while (CODE_LINE != "}") {
+		default_mode();
+		GNL();
+	}
+	GNL();
+
+	if (CODE_LINE == "else;") { READ_MODE = SKIP; }
+	else { READ_MODE = DEFAULT; }
+}
+
 void condition() {
 	std::string left_var = TOCKENS[1];
 	std::string right_var = TOCKENS[3];

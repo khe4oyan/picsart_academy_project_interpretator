@@ -1,6 +1,6 @@
 #pragma once
 
-//TOOLS
+// TOOLS
 template<typename T>
 void w(T t);
 void first_white_space_del();
@@ -25,16 +25,28 @@ void cnt_and();
 void cnt_or();
 void cnt_opeartors(std::string opr);
 void condition();
+void condition_mode();
 
-//OTHER FUNCTIONS
+// OTHER FUNCTIONS
 void create_var();
 void default_mode();
 void cycle_mode();
-void condition_mode();
 void skip_mode();
 void line_read();
+void operators();
+void appropriation();
+std::string get_var_type(int tocken_index);
 
-//INCLUDES ALL FILES
+// APPROPRIATION
+void just_appropriation();
+void appropriation();
+int translate_num(int i);
+void operators();
+void opr_apostrov_clear(int i);
+void opr_sum_str();
+
+// INCLUDES ALL FILES
 #include "tools.h"
 #include "condition.h"
 #include "other_functions.h"
+#include "appropriation.h"

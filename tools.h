@@ -32,31 +32,32 @@ void color_set(int color) {
 }
 
 void error(std::string msg) {
-	color_set(124);
+	color_set(124); // red in white
 	std::cout << " ERROR ";
-	color_set(79);
+	color_set(79); // white in red
 	std::cout << " in " <<  line_pointer << " line: " << msg << " " << std::endl;
-	color_set(15);
+	color_set(15); // white in black
 	exit(0);
 }
 
 void warning(std::string msg) {
-	color_set(142);
+	color_set(142); // yellow in gray
 	std::cout << " WARNING ";
-	color_set(232);
+	color_set(232); // gray in yellow
 	std::cout << " in " << line_pointer << " line: " << msg << " " << std::endl;
-	color_set(15);
+	color_set(15); // white in black
 }
 
 void tockens_reset() {
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < max_tocken_conunt; ++i) {
 		TOCKENS[i] = "";
 	}
 }
 
 void tockens_show() {
-	w("=====");
-	for (int i = 0; i < 4; ++i) {
+	color_set(5);
+	w("_________");
+	for (int i = 0; i < max_tocken_conunt; ++i) {
 		w(TOCKENS[i]);
 	}
 }
@@ -96,12 +97,11 @@ void get_tockens() {
 	tockens_reset();
 
 	for (int i = 0; i < CODE_LINE.length(); ++i) {
-		if (index >= 4) {error("Max tockens is 4");}
+		if (index >= max_tocken_conunt) {error("Max tockens is 5");}
 		
 		if(TOCKENS[0] == "str") {
 			if (index == 2) {
 				get_string(i);
-				w(TOCKENS[2]);
 				break;
 			}
 		}
@@ -113,9 +113,5 @@ void get_tockens() {
 			continue;
 		}
 		fk += CODE_LINE[i];
-	}
-	
-	if (TOCKENS[3] != "" && TOCKENS[0] != "if") {
-		error("last word is undefined");
 	}
 }

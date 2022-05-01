@@ -3,7 +3,7 @@ void create_var() {
 	if (var_found(TOCKENS[1])) {
 		error("this name is exists");
 	}
-
+	
 	if (TOCKENS[0] == "num") {
 		for (int i = 0; i < TOCKENS[2].length(); ++i) {
 			if (TOCKENS[2][i] >= 48 && TOCKENS[2][i] <= 57) {
@@ -16,10 +16,34 @@ void create_var() {
 	VARIABLES[TOCKENS[1]] = { TOCKENS[0], TOCKENS[2] };
 }
 
+std::string get_var_type(int tocken_index) {
+	if (TOCKENS[tocken_index][0] >= 48 && TOCKENS[tocken_index][0] <= 57) {
+		return "num";
+	}
+	if (var_found(TOCKENS[tocken_index]) && VARIABLES[TOCKENS[tocken_index]].type != "bool") {
+		return VARIABLES[TOCKENS[tocken_index]].type;
+	}
+	else {
+		if (tocken_index == 0) {
+			error("this variable isn't create");
+		}
+		if (TOCKENS[tocken_index][0] == '\'') {
+			return "str";
+		}
+		if (VARIABLES[TOCKENS[tocken_index]].type == "bool") {
+			return "bool";
+		}
+		for (int i = 0; i < TOCKENS[tocken_index].length(); ++i) {
+			if (TOCKENS[tocken_index][0] < 48 || TOCKENS[tocken_index][0] > 57) {
+				error("undefined value type");
+			}
+		}
+		return "num";
+	}
+}
+
 void default_mode() {
 	if (CODE_LINE.length() == 0) { return; }
-	//std::cout << "Get line: " << CODE_LINE << "\n";
-
 	std::string first_keyword = TOCKENS[0];
 
 	if (TOCKENS[1] != "=") {
@@ -35,24 +59,12 @@ void default_mode() {
 	else { error("syntax error"); }
 	}
 	else {
-		// присвоение 
-		error("in developing..");
+		appropriation();
 	}
 }
 
 void cycle_mode() {
 
-}
-
-void condition_mode() {
-	while (CODE_LINE != "}") {
-		default_mode();
-		GNL();
-	}
-	GNL();
-
-	if (CODE_LINE == "else;") { READ_MODE = SKIP; }
-	else { READ_MODE = DEFAULT; }
 }
 
 void skip_mode() {

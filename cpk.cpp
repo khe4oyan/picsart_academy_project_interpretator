@@ -7,8 +7,9 @@ struct Var {
 	std::string value;
 };
 
+const int max_tocken_conunt = 5;
 std::fstream CODE("variables.cpk"); // path for programm code file
-std::string TOCKENS[4]; // every line devided in tockens
+std::string TOCKENS[max_tocken_conunt]; // every line devided in tockens
 std::string CODE_LINE; // get new line 
 std::map<std::string, Var> VARIABLES; // all variables with their value and type
 int line_pointer = 0; // for easy errors show line
