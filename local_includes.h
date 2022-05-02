@@ -38,17 +38,15 @@ void opr_sum_str();
 // OTHER FUNCTIONS
 void create_var();
 void default_mode();
-void cycle_mode();
 void skip_mode();
 void line_read();
 void operators();
 void appropriation();
 std::string get_var_type(int tocken_index);
+void get_output_value(int i);
 
 // INCLUDES ALL FILES
 #include "tools.h"
 #include "condition.h"
 #include "other_functions.h"
 #include "appropriation.h"
-
-void get_output_value(int i);

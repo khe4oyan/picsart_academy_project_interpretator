@@ -1,19 +1,22 @@
-num age 2;
-num age2 5;
-str name 'Alex';
-bool havefriend true;
+output 'Hello! My name is Bob!';
+output 'I can count at 1 to 10';
 
-output 10;
-output name;
+num number 98;
+num needNum 22;
 
-if age > age2;
-	output 4;
+number = 0;
+needNum = needNum - 12;
+
+for 10;
+	number = number + 1;
+	output number;
+}
+
+if number == needNum;
+	output 'i can do this';
+	output 'Bye =)';
 }
 else;
-	output 'aw dsw';
-}
-for 5;
-	output 30;
-	output name;
-	output 'Bob';
+	output 'maybe in the next time..';
+	output 'Bye =(';
 }

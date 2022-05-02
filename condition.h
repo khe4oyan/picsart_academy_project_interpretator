@@ -11,11 +11,28 @@ void condition_mode() {
 	else { READ_MODE = DEFAULT; }
 }
 
+void cnt_opeartors(std::string opr) {
+	// >, <, ==, !=, &&, ||
+	
+	if (opr == ">") { cnt_big(); }else
+	if (opr == "<") { cnt_small(); }else
+	if (opr == "==") { cnt_equal(); }else
+	if (opr == "!=") { cnt_not_equal(); }else
+	if (opr == "&&") { cnt_and(); }else
+	if (opr == "||") { cnt_or(); }else
+	error("\"" + opr + "\"undefined condition operator");
+}
+
 void condition() {
 	std::string left_var = TOCKENS[1];
 	std::string right_var = TOCKENS[3];
-	if (!var_found(left_var) || !var_found(right_var)) {
-		error("this variable is exists");
+
+	if (!var_found(right_var)) {
+		error("\"" + left_var + "\" variable is exists");
+	}
+
+	if (!var_found(right_var)) {
+		error("\"" + right_var + "\" variable is exists");
 	}
 
 	if (VARIABLES[left_var].type != VARIABLES[right_var].type) {
@@ -45,24 +62,18 @@ void cnt_big() { // >
 	int num_1 = std::stoi(VARIABLES[TOCKENS[1]].value);
 	int num_2 = std::stoi(VARIABLES[TOCKENS[3]].value);
 
-	if (num_1 > num_2) {
-		READ_MODE = CONDITION;
-	}
-	else {
-
-		cnt_else_version();
-	}
+	if (num_1 > num_2) {READ_MODE = CONDITION;}
+	else {cnt_else_version();}
 }
 
 void cnt_small() { // <
 	cnt_type_equal("num");
 
-	if (std::stoi(VARIABLES[TOCKENS[1]].value) < std::stoi(VARIABLES[TOCKENS[3]].value)) {
-		READ_MODE = CONDITION;
-	}
-	else {
-		cnt_else_version();
-	}
+	int num_1 = std::stoi(VARIABLES[TOCKENS[1]].value);
+	int num_2 = std::stoi(VARIABLES[TOCKENS[3]].value);
+
+	if (num_1 < num_2) { READ_MODE = CONDITION; }
+	else {cnt_else_version();}
 }
 
 void cnt_equal() { // == 
@@ -73,6 +84,7 @@ void cnt_equal() { // ==
 		cnt_else_version();
 	}
 }
+
 void cnt_not_equal() { // != 
 	if (VARIABLES[TOCKENS[1]].value != VARIABLES[TOCKENS[3]].value) {
 		READ_MODE = CONDITION;
@@ -87,9 +99,7 @@ void cnt_and() { // &&
 	if (std::stoi(VARIABLES[TOCKENS[1]].value) > std::stoi(VARIABLES[TOCKENS[3]].value)) {
 		READ_MODE = CONDITION;
 	}
-	else {
-		cnt_else_version();
-	}
+	else {cnt_else_version();}
 }
 
 void cnt_or() { // || 
@@ -98,26 +108,7 @@ void cnt_or() { // ||
 	if (std::stoi(VARIABLES[TOCKENS[1]].value) || std::stoi(VARIABLES[TOCKENS[3]].value)) {
 		READ_MODE = CONDITION;
 	}
-	else {
-		cnt_else_version();
-	}
+	else {cnt_else_version();}
 }
 
-void cnt_opeartors(std::string opr) {
-	// >, <, ==, !=, &&, ||
-	
-	if (opr == ">") { cnt_big(); }
-	else
-	if (opr == "<") { cnt_small(); }
-	else
-	if (opr == "==") { cnt_equal(); }
-	else
-	if (opr == "!=") { cnt_not_equal(); }
-	else
-	if (opr == "&&") { cnt_and(); }
-	else
-	if (opr == "||") { cnt_or(); }
-	else
-	error("undefined condition operator");
-}
 

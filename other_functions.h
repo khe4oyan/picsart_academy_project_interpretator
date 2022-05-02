@@ -13,10 +13,10 @@ void create_var() {
 
 	if (TOCKENS[0] == "num") {
 		for (int i = 0; i < TOCKENS[2].length(); ++i) {
-			if (TOCKENS[2][i] >= 48 && TOCKENS[2][i] <= 57) {
+			if (TOCKENS[2][i] >= 48 && TOCKENS[2][i] <= 57 || TOCKENS[2][i] == '-') {
 				continue;
 			}
-			error("you can't appropriate symbol for number type");
+			error("you can't appropriate \"" + TOCKENS[2] + "\" symbol for number type");
 		}
 	}
 
@@ -50,7 +50,42 @@ std::string get_var_type(int tocken_index) {
 }
 
 void output() {
+	if (TOCKENS[1] == "") {
+		error("haven't argument");
+	}
 	w(TOCKENS[1]);
+}
+
+void for_keyword() {
+	int for_count{};
+	try{
+		for_count = std::stoi(TOCKENS[1]);
+		if (for_count < 0) {
+			error("for number can't was small than 0");
+		}
+	}
+	catch (const std::exception&){
+		error("after for have only number");
+	}
+
+	std::map<int, std::string>for_body;
+
+	GNL();
+	int index = 0;
+	while (CODE_LINE != "}") {
+		for_body[index++] = CODE_LINE;
+		GNL();
+	}
+
+	while (for_count != 0) {
+		for (auto &i : for_body) {
+			CODE_LINE = i.second;
+			get_tockens();
+			default_mode();
+		}
+		for_count--;
+	}
+
 }
 
 void default_mode() {
@@ -60,40 +95,27 @@ void default_mode() {
 	if (TOCKENS[1] != "=") {
 		if (first_keyword == "num" || first_keyword == "str" || first_keyword == "bool") { create_var(); }else
 		if (first_keyword == "if") { condition(); }else
-		if (first_keyword == "for") { READ_MODE = SKIP; /* временно */ } else
-		if (first_keyword == "else") { READ_MODE = SKIP; }else
+		if (first_keyword == "for") { for_keyword(); } else
+		if (first_keyword == "else") { READ_MODE = SKIP; } else
 		if (first_keyword == "output") { output(); }
-		else { error("first tocken is undefined"); }
 	}
 	else { appropriation(); }
 }
 
-void cycle_mode() {
-
-}
-
 void skip_mode() {
-	while (CODE_LINE != "}") {
-		GNL();
-	}
-
+	while (CODE_LINE != "}") { GNL(); }
 	READ_MODE = DEFAULT;
 }
 
 void line_read() {
 	while (!CODE.eof()) {
 		GNL();
-		if (READ_MODE == DEFAULT) {
-			default_mode();
+
+		switch (READ_MODE) {
+			case DEFAULT: { default_mode(); break; }
+			case SKIP: { skip_mode(); break; }
+			case CONDITION: { condition_mode(); }
 		}
-		else if (READ_MODE == CYCLE) {
-			cycle_mode();
-		}
-		else if (READ_MODE == SKIP) {
-			skip_mode();
-		}
-		else {
-			condition_mode();
-		}
+
 	}
 }

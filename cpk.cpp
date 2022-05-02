@@ -1,6 +1,6 @@
 ﻿#include "system_includes.h"
 
-enum mods { DEFAULT, CYCLE, CONDITION, SKIP };
+enum mods { DEFAULT, CONDITION, SKIP };
 
 struct Var {
 	std::string type;

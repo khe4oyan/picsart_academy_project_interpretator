@@ -1,7 +1,4 @@
 #pragma once
-
-
-
 void opr_sum_str() {
 	std::string tmp = "'";
 	VARIABLES[TOCKENS[0]].value = tmp + TOCKENS[2] + TOCKENS[4] + tmp;
