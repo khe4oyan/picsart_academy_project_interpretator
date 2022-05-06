@@ -3,9 +3,12 @@
 template<typename T>
 void w(T t) {
 	std::cout << t;
+	/*
 	color_set(8);
-	std::cout << " (" << line_pointer << " line)\n";
+	std::cout << " (" << line_pointer << " line)";
 	color_set(15);
+	*/
+	std::cout << "\n";
 }
 
 void first_white_space_del() {
@@ -27,8 +30,8 @@ void GNL() {// Get Next Line
 }
 
 void color_set(int color) {
-	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(h, color);
+	/*HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(h, color);*/
 }
 
 void error(std::string msg) {
