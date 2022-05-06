@@ -40,7 +40,6 @@ for 100;
 ___
 
 >## How to **download and run it**
-___
 1. download project in your PC
 2. compile code with g++
    1. after compile project you can delete all project files
