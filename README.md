@@ -1,4 +1,4 @@
-![Header](reame/../readme/header.png)
+![banner](https://raw.githubusercontent.com/khe4oyan/repo_banners/main/banners/ckp_interpretator.png)
 # Code syntax
 
 >### Variables type
